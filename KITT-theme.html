@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <title>Document</title>
+
+  <style>
+    body{
+      background-color: black;
+    }
+    #head{
+      width: 1000px;
+      display: flex;
+      /*justify-content: center;*/
+      top: 400px;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      position: absolute;
+      margin: auto;
+
+    }
+    #head>div{
+      width: 120px;
+      height: 65px;
+      border:3px solid #FFFF;
+      text-align: center;
+      font-size: 30px;
+    }
+    #btn{
+      display: flex;
+      justify-content: center;
+    }
+    #btn>button{
+      width: 80px;
+      height: 40px;
+      margin-right: 10px;
+      margin-top: 20px;
+    }
+    .lighton{
+      background: red;
+      box-shadow: 0px 0px 50px red;";
+    }
+    .lighton2{
+      background: deeppink;
+      box-shadow: 0px 0px 50px deeppink;";
+    }
+
+  </style>
+</head>
+<body>
+
+<h1>js Timers</h1>
+<div id="head">
+  <div class="light" id="d1"></div>
+  <div class="light" id="d2"></div>
+  <div class="light" id="d3"></div>
+  <div class="light" id="d4"></div>
+  <div class="light" id="d5"></div>
+  <div class="light" id="d6"></div>
+</div>
+<div id="btn">
+  <button id="btn-run">Run</button>
+  <button id="btn-stop">Stop</button>
+</div>
+
+<audio src="Assests/audio.mp3" id="audio"></audio>
+<script src="Assests/lib/jquery-3.7.1.min.js"></script>
+<script>
+
+  var count=0;
+  var array1=["#d90909","#d93232","#d66969","#ffffff","#ffffff","#ffffff"];
+
+
+
+  var currentIndex=0;
+  var max_index=6;
+  var move="RIGHT";
+
+  function updateLignt(){
+    $(".light").removeClass("lighton");
+    $(".light").removeClass("lighton2");
+    $(".light").eq(currentIndex).addClass("lighton");
+
+    if(move === "RIGHT"){
+      if(currentIndex!==0) $(".light").eq(currentIndex-1).addClass("lighton2");
+
+      ++currentIndex;
+      if(currentIndex>max_index-2){
+        move="LEFT";
+      }
+    }else{
+      $(".light").eq(currentIndex+1).addClass("lighton2");
+
+      --currentIndex;
+      if(currentIndex===0){
+        move="RIGHT";
+      }
+    }
+
+
+  }
+  $("#btn-run").on('click', () => {
+    myInterval=setInterval(updateLignt,100);
+    $('#audio')[0].play();
+  })
+  $("#btn-stop").on('click', () => {
+    clearInterval(myInterval);
+    $('#audio')[0].pause();
+  })
+
+
+</script>
+
+</body>
+</html>
